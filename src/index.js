@@ -9,7 +9,7 @@ import { configureStore } from "./redux/configureStore";
 
 const store = configureStore();
 
-const rooEl = document.getElementById("root");
+const root = document.getElementById("root");
 
 function render() {
   ReactDOM.render(
@@ -18,7 +18,7 @@ function render() {
         <App />
       </BrowserRouter>
     </Provider>,
-    rooEl
+    root
   );
 }
 

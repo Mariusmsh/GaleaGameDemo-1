@@ -1,5 +1,4 @@
 import {
-  Divider,
   List,
   ListItem,
   ListItemIcon,
@@ -10,9 +9,36 @@ import { NavLink, useHistory } from "react-router-dom";
 import HomeIcon from "@material-ui/icons/Home";
 import LockIcon from "@material-ui/icons/Lock";
 import { signOutFirebase } from "../../App/firestore/firebaseService";
+import { makeStyles } from '@material-ui/core/styles';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+}));
+
 
 export default function SignedInMenu() {
   const history = useHistory();
+  const classes = useStyles();
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
+  const [open, setOpen] = React.useState(true);
 
   async function handleSignOut() {
     try {
@@ -23,20 +49,75 @@ export default function SignedInMenu() {
     }
   }
 
+
   return (
-    <List>
+    <List
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      subheader={
+        <ListSubheader component="div" id="nested-list-subheader">
+          Menu
+        </ListSubheader>
+      }
+      className={classes.root}
+    >
       <ListItem button component={NavLink} to="/">
         <ListItemIcon>
-          <HomeIcon />
+        <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="Home" />
       </ListItem>
-
-      <Divider />
-
+     
+      <ListItem button onClick={handleClick} to="/">
+        <ListItemIcon>
+          <SportsEsportsIcon />
+        </ListItemIcon>
+        <ListItemText primary="View Levels" />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Level 0" />
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Level 1" />
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Level 2" />
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Level 3" />
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Level 4" />
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Level 5" />
+          </ListItem>
+        </List>
+      </Collapse>
       <ListItem button component={NavLink} to="/" onClick={handleSignOut}>
         <ListItemIcon>
-          <LockIcon />
+        <LockIcon />
         </ListItemIcon>
         <ListItemText primary="Logout" />
       </ListItem>

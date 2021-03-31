@@ -10,11 +10,16 @@ import RegisterPage from "../components/register/RegisterPage";
 import "./App.css";
 import ProtectedRoute from "./ProtectedRoute";
 
+
+firebase.firestore().collection
+
 function App() {
   const { initialized } = useSelector((state) => state.async);
 
   if (!initialized) return <AppLoader />;
 
+
+ 
   return (
     <div className="App">
       <CssBaseline />

@@ -5,16 +5,18 @@ import "firebase/auth";
 import "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC1uTTrlJzxEpqqkGv1Vc50iTckh_XGu2w",
-  authDomain: "galeagames-9585a.firebaseapp.com",
-  projectId: "galeagames-9585a",
-  storageBucket: "galeagames-9585a.appspot.com",
-  messagingSenderId: "425646541578",
-  appId: "1:425646541578:web:7acf34a4d1856ffbfa48f3",
-  measurementId: "G-SVBZWLVW7Y",
+  apiKey: "AIzaSyDfSPvHThBryI4HWHDsdyJNoHvACYo4wDE",
+  authDomain: "login-7cae3.firebaseapp.com",
+  projectId: "login-7cae3",
+  storageBucket: "login-7cae3.appspot.com",
+  messagingSenderId: "174101026686",
+  appId: "1:174101026686:web:f527c5705d2cdb33b3452f"
 };
 
 firebase.initializeApp(firebaseConfig);
 firebase.firestore();
+
+
+
 
 export default firebase;

@@ -35,10 +35,11 @@ export function setUserProfileData(user) {
 
 // Get stocks collection from firestore
 export function listenToStocksFromFirestore() {
-  return db.collection("stock");
+  return db.collection("stock")
+
 }
 
 // Get single stock document from firestore
 export function listenToStockFromFirestore(stockId) {
-  return db.collection("stock").doc(stockId);
+  return db.collection("stock").doc(stockId).set();
 }

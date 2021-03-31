@@ -11,8 +11,8 @@ export function listenToStocks(stocks) {
   stocks.forEach((e) => {
     data.push({
       ...e,
-      date: moment(e.date).format("YYYY-DD-MM"),
-      time: moment(e.date).format("HH:mm"),
+      date: moment(e.date).format("HH:mm:ss"),
+      //time: moment(e.date).format("HH:mm"),
     });
   });
   return {
