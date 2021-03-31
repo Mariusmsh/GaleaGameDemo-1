@@ -11,8 +11,6 @@ import "./App.css";
 import ProtectedRoute from "./ProtectedRoute";
 
 
-firebase.firestore().collection
-
 function App() {
   const { initialized } = useSelector((state) => state.async);
 
