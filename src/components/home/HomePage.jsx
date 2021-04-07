@@ -6,7 +6,7 @@ import { listenToStocks } from "../../redux/actions/stocksActions";
 import AppLoader from "../common/uiElements/AppLoader";
 import GlobalLineChart from "../common/charts/GlobalLineChart";
 import useFirestoreCollection from "../common/hooks/useFirestoreCollection";
-
+import { addData } from "../../App/firestore/firestoreService";
 export default function HomePage() {
   /*var upClicked = false;
   var downClicked = false;
@@ -23,6 +23,16 @@ export default function HomePage() {
 
   const dispatch = useDispatch();
   const { stocks } = useSelector((state) => state.stocks);
+  //const orderData = await stocks.orderBy('date', 'asc').get();
+
+
+  /*useEffect(() => {
+    const interval = setInterval(() => {
+      listenToStocksFromFirestore()
+      console.log('This will run every second!');
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []); */
 
 
   useFirestoreCollection({
@@ -31,6 +41,7 @@ export default function HomePage() {
     deps: [dispatch],
   });
 
+
   
 
   function getMinData() {
@@ -38,9 +49,13 @@ export default function HomePage() {
       Math,
       stocks.map(function (o) {
         return o.value;
+        
       })
     );
-  }
+  } 
+
+
+
 
 
 
@@ -52,16 +67,38 @@ export default function HomePage() {
       })
     );
     
+  } 
 
+  /*function getCurrentData(){
+    return(
+      Math,
+      stocks.map(function (o) {
+        if (o.Date<)
+        return o.value;
+      })
+    );
+  } */
 
+  /*function test(){
+  stocks.Date = a;
+  stocks.Date = b;
+  
+  if (a<b){
+    return a.value;
     
   }
+  else if(b>a){
+    return b.value;
+    wait (1000)
+  }
+  }*/
 
   
 
   if (stocks && stocks.length < 1) return <AppLoader />;
 
   return (
+    
     <div>
       <Typography component="h4" variant="h6">
         Home
@@ -72,6 +109,7 @@ export default function HomePage() {
       </Typography>
 
       {stocks && stocks.length > 0 ? (
+        
         <Grid
           container
           spacing={3}
@@ -87,7 +125,7 @@ export default function HomePage() {
               color="#8884d8"
               tooltip={true}
               legend={false}
-              graphFit={[getMinData(), getMaxData()]
+              graphFit={[getMinData()]
               }
             />
           </Grid>
