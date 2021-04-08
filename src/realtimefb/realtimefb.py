@@ -15,6 +15,6 @@ firebase_admin.initialize_app(cred, {
 
 ref = db.reference('/')
 
-with open("/GaleaDemo/GaleaGameDemo/files/books.json", "r") as f:
+with open("/GaleaDemo/GaleaGameDemo/files/stock.json", "r") as f:
     file_contents = json.load(f)
 ref.set(file_contents)

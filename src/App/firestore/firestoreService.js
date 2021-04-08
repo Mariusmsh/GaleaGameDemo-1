@@ -72,6 +72,11 @@ function loadData(){
   })
 }
 
+db.collection("stock").onSnapshot(snapshot => {
+  let changes = snapshot.docChanges();
+  console.log(changes);
+})
+
 
 async function timeoutData (){
   //for (var i = 0; i<=30; ++i){
