@@ -7,6 +7,7 @@ import AppLoader from "../common/uiElements/AppLoader";
 import GlobalLineChart from "../common/charts/GlobalLineChart";
 import useFirestoreCollection from "../common/hooks/useFirestoreCollection";
 import { addData } from "../../App/firestore/firestoreService";
+import { Button } from "@material-ui/core";
 export default function HomePage() {
   /*var upClicked = false;
   var downClicked = false;
@@ -56,9 +57,6 @@ export default function HomePage() {
 
 
 
-
-
-
   function getMaxData() {
     return Math.max.apply(
       Math,
@@ -95,7 +93,8 @@ export default function HomePage() {
 
   
 
-  if (stocks && stocks.length < 1) return <AppLoader />;
+  if (stocks && stocks.length < 1) return <AppLoader />, <Button color="primary" variant="contained"> Start Game </Button>;
+  
 
   return (
     
@@ -104,9 +103,7 @@ export default function HomePage() {
         Home
       </Typography>
 
-      <Typography component="h7" variant="h7">
-        To the right you will be presented stock data. 	&rarr;
-      </Typography>
+    
 
       {stocks && stocks.length > 0 ? (
         
@@ -125,7 +122,7 @@ export default function HomePage() {
               color="#8884d8"
               tooltip={true}
               legend={false}
-              graphFit={[getMinData()]
+              graphFit={[501,522]
               }
             />
           </Grid>

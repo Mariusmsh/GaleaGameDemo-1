@@ -4,6 +4,18 @@ from firebase_admin import credentials, firestore
 import datetime
 import time
 from time import sleep
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    return '<h1>Test</h1>'
+    #flask.render_template("homepage.jsx", token="Loaded python script")
+
+
+app.run(debug=True)
 
 cred = credentials.Certificate(
     "/GaleaDemo/GaleaGameDemo/src/realtimefb/service_key.json")
@@ -29,19 +41,4 @@ while True:
             break
         elif (stock < stockdata[15]):
             continue
-            # time.sleep(1)
-
-
-# doc_ref.add(
-#    {u'date': datetime.datetime.utcnow(), u'value': u'555'})
-
-# doc_ref = store.collection(u'stock').limit(2)
-
-
-# read data in terminal
-# try:
-#    docs = doc_ref.get()
-#    for doc in docs:
-#        print(u'Doc Data:{}'.format(doc.to_dict()))
-# except google.cloud.exceptions.NotFound:
-#    print(u'Missing data')
+# /
