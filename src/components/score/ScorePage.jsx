@@ -8,7 +8,6 @@ import GlobalLineChart from "../common/charts/GlobalLineChart";
 import useFirestoreCollection from "../common/hooks/useFirestoreCollection";
 import { green, blue, red } from '@material-ui/core/colors'; 
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 
 
@@ -34,8 +33,8 @@ export default function ScorePage() {
   const { stocks } = useSelector((state) => state.stocks);
   //const orderData = await stocks.orderBy('date', 'asc').get();
 
-  const {state} = useLocation();
-  const { highscore, lowscore } = state; // Read values passed on state
+  //const {state} = useLocation();
+  //const { highscore, lowscore } = state; // Read values passed on state
 
 
 
@@ -167,8 +166,8 @@ function multipleRestartOnClick(){
 
             <Grid item xs={6}>
 
-            <div><h3>Your HIGH: {highscore} </h3></div>
-            <div><h3>Your LOW: {lowscore} </h3></div>
+            <div><h3>Your HIGH: {} </h3></div>
+            <div><h3>Your LOW: {} </h3></div>
             </Grid>
 
            <Grid item xs={6}>

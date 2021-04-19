@@ -30,6 +30,7 @@ endTime = datetime.datetime.now() + datetime.timedelta(seconds=18)
 
 doc_ref = store.collection(u'stock')
 
+
 while True:
     if datetime.datetime.now() <= endTime:
         for stock in stockdata:
