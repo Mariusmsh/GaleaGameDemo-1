@@ -3,8 +3,6 @@ import firebase from "../config/firebase";
 const db = firebase.firestore();
 //var ref = database.ref('date');
 //ref.on('date')
-var batch = db.batch();
-var stockRef = db.collection("stock");
 
 export function dataFromSnapshot(snapshot) {
   if (!snapshot.exists) return undefined;
@@ -40,13 +38,33 @@ export function setUserProfileData(user) {
     });
 }
 
+export function createMatch(match){
+  return db
+  .collection("match")
+  .doc(match.uid)
+  .set({
+    highScore: match.highScore,
+    lowScore: match.lowScore,
+    percentage: match.percentage
+  })
+}
+
+export function connectMatchToUser(match, user){
+  return db
+  .collection("match")
+
+  
+}
 
 
+
+
+/*
 //function that creates a random value for a stock, so it creates a random game
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min) ) + min;
 } 
-  
+  */
 
 
 // Get stocks collection from firestore
@@ -59,6 +77,7 @@ export function listenToStocksFromFirestore() {
     return db.collection("stock").orderBy('date', 'asc');
 }
 
+/* Funksjon som loader random interger data, tatt ut i kommentar as per now
 function loadData(){
   var x = getRndInteger(600, 900)
   //var y = 1000
@@ -70,7 +89,7 @@ function loadData(){
     date: firebase.firestore.Timestamp.now().toMillis()
     
   })
-}
+} */
 
 db.collection("stock").onSnapshot(snapshot => {
   let changes = snapshot.docChanges();
@@ -78,25 +97,18 @@ db.collection("stock").onSnapshot(snapshot => {
 })
 
 
-async function timeoutData (){
-  //for (var i = 0; i<=30; ++i){
-    //if (i<=30){
-      setTimeout(loadData(), 1000)
-      
-   // }
-    db.collection("stock").get();
-   // break;
-    
- // }
-  
-}
-
 
 // Get single stock document from firestore
 export function listenToStockFromFirestore(stockId) {
   return db.collection("stock").doc(stockId).set();
   
 }
+
+
+
+
+
+
 
 //Update "live" data
 //function 
