@@ -51,7 +51,7 @@ export default function GlobalLineChart({
           stroke={color}
           activeDot={{ r: 8 }}
           strokeWidth={2.5}
-          animationDuration={90}
+          animationDuration={50}
           animationEasing="linear"
           
         />

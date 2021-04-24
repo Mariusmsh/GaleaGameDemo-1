@@ -7,7 +7,8 @@ import AppLoader from "../common/uiElements/AppLoader";
 import GlobalLineChart from "../common/charts/GlobalLineChart";
 import useFirestoreCollection from "../common/hooks/useFirestoreCollection";
 import { green, blue, red } from '@material-ui/core/colors'; 
-import { useState, useRef, useEffect } from 'react';
+//import { useState, useRef, useEffect } from 'react';
+
 
 
 
@@ -20,8 +21,7 @@ export default function ScorePage() {
   const theme = createMuiTheme({
     palette: {
       primary: blue,
-      secondary: green,
-      tertiary: red
+      secondary: green
     }
 
   });
@@ -32,6 +32,9 @@ export default function ScorePage() {
   const dispatch = useDispatch();
   const { stocks } = useSelector((state) => state.stocks);
   //const orderData = await stocks.orderBy('date', 'asc').get();
+
+  const { HIGH } = this.props.location
+  const { LOW } = this.props.location
 
   //const {state} = useLocation();
   //const { highscore, lowscore } = state; // Read values passed on state
@@ -111,6 +114,9 @@ function multipleRestartOnClick(){
 
 
 
+
+
+
 //new chart integration
 
 
@@ -162,19 +168,17 @@ function multipleRestartOnClick(){
           alignItems="center"
         >
            
-          
+         
+    
 
-            <Grid item xs={6}>
+           
 
-            <div><h3>Your HIGH: {} </h3></div>
-            <div><h3>Your LOW: {} </h3></div>
-            </Grid>
-
-           <Grid item xs={6}>
+            <div><h3>Your HIGH: {this.props.match.params.HIGH} </h3></div>
+            <div><h3>Your LOW: {this.props.match.params.LOW} </h3></div>
 
       
           
-          </Grid>
+          
 
           
 

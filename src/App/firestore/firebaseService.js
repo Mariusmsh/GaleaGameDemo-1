@@ -1,5 +1,6 @@
 import firebase from "../config/firebase";
 import { setUserProfileData } from "./firestoreService";
+import { addOneDataToUser } from "./firestoreService";
 
 export function signInWithEmail(creds) {
   return firebase
@@ -30,6 +31,8 @@ export async function registerInFirebase(creds) {
     throw error;
   }
 }
+
+
 
 export async function socialLogin(selectedProvider) {
   let provider;

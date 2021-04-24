@@ -3,18 +3,61 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listenToStocksFromFirestore } from "../../App/firestore/firestoreService";
 import { listenToStocks } from "../../redux/actions/stocksActions";
+import { addMatchResultsToFirestore } from "../../App/firestore/firestoreService";
 import AppLoader from "../common/uiElements/AppLoader";
 import GlobalLineChart from "../common/charts/GlobalLineChart";
 import useFirestoreCollection from "../common/hooks/useFirestoreCollection";
 import { green, blue, red } from '@material-ui/core/colors'; 
 import { useState, useRef, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
   Link
 } from "react-router-dom";
 
+import { useLocation } from 'react';
+
+import ScorePage from "../score/ScorePage";
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+//popup for the game imported, css style "input button" not the same as regular button
+import Modal from 'react-awesome-modal';
+import '../common/buttons/buttoncss.css'
+
+
+import Confetti from 'react-dom-confetti';
+
+
 //import { CalmButton } from '/GaleaDemo/GaleaGameDemo/src/components/common/buttons/CalmButton.js';
 
+// import the progress bar
+import StepProgressBar from 'react-step-progress';
+// import the stylesheet
+import 'react-step-progress/dist/index.css';
 
+const step1Content = <h1>Step 1 Content</h1>;
+const step2Content = <h1>Step 2 Content</h1>;
+const step3Content = <h1>Step 3 Content</h1>;
+
+
+function step2Validator() {
+  // return a boolean
+}
+ 
+function step3Validator() {
+  // return a boolean
+}
+ 
+function onFormSubmit() {
+  // handle the submit logic here
+  // This function will be executed at the last step
+  // when the submit button (next button in the previous steps) is pressed
+}
 
 //får ikke helt 100% til det med farger, burde egt ikke være så vanskelig
 
@@ -24,12 +67,82 @@ export default function HomePage() {
   //const that defines the theme 
   const theme = createMuiTheme({
     palette: {
-      primary: blue,
-      secondary: green,
-      tertiary: red
+      primary: blue
     }
 
   });
+
+  //config for confetti
+  const config = {
+    angle: "118",
+    spread: "600",
+    startVelocity: "78",
+    elementCount: "113",
+    dragFriction: "0.13",
+    duration: "5000",
+    stagger: "23",
+    width: "14px",
+    height: "15px",
+    perspective: "1000px",
+    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+  };
+
+
+  
+/*
+  const StyledButton = withStyles({
+    root: {
+      background: '#FF0000',
+      color: 'white',
+      borderRadius: 3,
+      border: 0,
+      padding: '0 30px'
+    }
+  })(Button);
+
+  
+  const StyledButton1 = withStyles({
+    root: {
+      background: '#008000',
+      color: 'white',
+      borderRadius: 3,
+      border: 0,
+      padding: '0 30px'
+    }
+  })(Button);
+*/
+  const useStyles = makeStyles({
+    root: {
+      background: (props) =>
+        props.color === 'red'
+          ? "linear-gradient(45deg, #008000 30%, #52B640 90%)"
+          : "linear-gradient(45deg, #FF0000 30%, #FF3E20 90%)",
+      border: 0,
+      borderRadius: 3,
+      boxShadow: (props) =>
+        props.color === 'red'
+          ? '0 3px 5px 2px rgba(255, 105, 135, .3)'
+          : '0 3px 5px 2px rgba(33, 203, 243, .3)',
+      color: 'white',
+      height: 48,
+      width: 1000,
+      margin: 8,
+    },
+  });
+  
+  function MyButton(props) {
+    const { color, ...other } = props;
+    const classes = useStyles(props);
+    return <Button className={classes.root} {...other} />;
+  }
+  
+  MyButton.propTypes = {
+    color: PropTypes.oneOf(['blue', 'red']).isRequired,
+  };
+
+
+
+
 
   //dispatches the stocks
   const dispatch = useDispatch();
@@ -46,10 +159,35 @@ export default function HomePage() {
   const[HIGH, setHIGH] = useState('Not selected');
   const[LOW, setLOW] = useState('Not selected');
 
+//const for saving the score
+  const[saveHIGH, setSaveHIGH] = useState(0);
+  const [saveLOW, setSaveLow ] = useState(0);
+
 
   //const for pressing button and not pressing button
   const [pressed, setPressed] = useState(true);
   const [pressedLow, setPressedLow] = useState (true);
+
+  //const for text color
+  const hStyle = { color: 'red' };
+  const hStyle1 = { color: 'green' };
+
+  //const for calculating accuracy
+  const [accuracy, setAccuracy] = useState('Not set');
+  //const for calculating score
+  const [score, setScore] = useState('Not set');
+
+  const MAX = getMaxData();
+  const MIN = getMinData();
+
+
+//hide or show the view results button
+  const [hidden, setHidden] = useState ('hidden');
+
+  //const for visible score and accuracy
+  const [show, setShow] = useState ('hidden');
+
+  
 
 
   //const for data pushing
@@ -71,14 +209,15 @@ export default function HomePage() {
       clearTimer(getDeadlineTime())
       //this will be run when the component will unmount.
       // we need to be sure that no memory leak or else our app will crash
-      return () => {if(intervalRef.current) clearInterval(intervalRef.curent)}
+      return () => {if(intervalRef.current) clearInterval(intervalRef.current) 
+      }
   },[]); //NB OVERSE WARNING!!
 
   //man kan plassere noe inne i [] som denne skal være dependent på, men hvis man prøver stocks,
   // så blir greia helt loka, kan ha tomt array enn så lenge
 
   function onClickResetBtn(){
-    {if(intervalRef.current) clearInterval(intervalRef.curent)}
+    {if(intervalRef.current) clearInterval(intervalRef.current)}
     clearTimer(getDeadlineTime());
   }
 
@@ -92,6 +231,24 @@ function clickLow(){
     })
   );
   
+}
+
+function calcAccuracy(HIGH, LOW, MAX, MIN){
+  var forMax = Math.floor((HIGH*100)/MAX)
+  var forMin;
+  if (LOW<=MIN){
+    return forMin = Math.floor((LOW*100)/MIN)
+  }
+  else if (LOW>MIN){
+    var temp = ((LOW/MIN)-1)
+    return forMin = ((1-temp)*100).toFixed(2);
+  }
+  const accuracy = (forMax+forMin)/2
+  return accuracy;
+}
+
+function calcScore(maxPoints, accuracy){
+  return (maxPoints*accuracy)/100;
 }
 
 
@@ -152,15 +309,38 @@ function handleLowClick(){
 
   }
 
-  /*
-  export default function passHigh(){
-      return null;
-  }
+
+
   
-  export default function passLow(){
-      return null;
-  }
-  */
+  
+function parseScores(){
+  var highValue = setSaveHIGH(HIGH)
+  var lowValue = setSaveLow(LOW)
+  
+  addMatchResultsToFirestore(undefined, parseInt(highValue),parseInt(lowValue))
+  console.log("denne kjører")
+}
+
+const [visible, setVisible] = useState (true);
+
+//functions for the popup box
+function openModal() {
+  setVisible(true);
+}
+
+function closeModal() {
+  setVisible(false);
+}
+
+
+const [tutorial, setTutorial] = useState (false);
+function openTutorial(){
+  setTutorial(true);
+}
+
+function closeTutorial(){
+  setTutorial(false);
+}
   
 
  
@@ -228,13 +408,17 @@ function handleLowClick(){
     }
     else{
       clearInterval(intervalRef.current);
+      setHidden('none');
+      setShow('visible');
+      openModal();
+      //parseScores();
     }
   }
 
 
   //function for clearing the timer
   function clearTimer(endtime){
-    setTimer('00:00:31');
+    setTimer('00:00:35');
     if(intervalRef.current) clearInterval(intervalRef.current);
     const id = setInterval(()=>{
       startTimer(endtime);
@@ -245,7 +429,7 @@ function handleLowClick(){
   //deadline of timer
   function getDeadlineTime(){
     let deadline = new Date();
-    deadline.setSeconds(deadline.getSeconds()+31);
+    deadline.setSeconds(deadline.getSeconds()+35);
     return deadline;
   }
 
@@ -257,13 +441,21 @@ function multipleOnClick(){
   onClickResetBtn();
   setPressed(false);
   setPressedLow(false);
+  parseScores();
 }
 
 function multipleRestartOnClick(){
     shutdownScript();
     setLOW('Not Selected');
     setHIGH('Not Selected');
+    setHidden('hidden');
+    setShow('hidden');
+    
+    
 }
+
+
+
 
 
 
@@ -287,6 +479,56 @@ function multipleRestartOnClick(){
             Start Game
         </Button>
         </ThemeProvider>
+
+        <input type="button" value="VIEW TUTORIAL" class="button" onClick={() => openTutorial()} ></input>
+        
+        
+                <Modal 
+                    visible={tutorial}
+                    width="1000"
+                    height="600"
+                    effect="fadeInUp"
+                    onClickAway={() => closeTutorial()}
+                >
+                  
+                    <div id="parent">
+                   
+                  
+                      
+                    <StepProgressBar
+                        startingStep={0}
+                        onSubmit={onFormSubmit}
+                        steps={[
+                          {
+                            label: 'Step 1',
+                            subtitle: '10%',
+                            name: 'step 1',
+                            content: step1Content
+                          },
+                          {
+                            label: 'Step 2',
+                            subtitle: '50%',
+                            name: 'step 2',
+                            content: step2Content,
+                            validator: step2Validator
+                          },
+                          {
+                            label: 'Step 3',
+                            subtitle: '100%',
+                            name: 'step 3',
+                            content: step3Content,
+                            validator: step3Validator
+                          }
+                        ]}
+                      />;
+                        
+
+                        <a href="javascript:void(0);" onClick={() => closeTutorial()}>Go back</a>
+
+                        
+
+                    </div>
+                </Modal>
       </center>
 
 
@@ -304,8 +546,46 @@ function multipleRestartOnClick(){
             Restart Game
         </Button>
 
+      
+        
+        <input type="button" value="VIEW RESULTS" class="button" type={hidden} onClick={() => openModal()} ></input>
+        
+        
+                <Modal 
+                    visible={visible}
+                    width="1000"
+                    height="600"
+                    effect="fadeInUp"
+                    onClickAway={() => closeModal()}
+                >
+                  
+                    <div id="parent">
+                   
+                   
+                    <div id="child-right"> <Confetti active={ visible } config={ config }/></div>
+                      
+                        <h1>Congratulations!</h1>
+                        <p>Thank you for participating!</p>
+                       <br></br>
+                       <h2>Match Summary:</h2>
+                        <h3>Accuracy: {calcAccuracy(HIGH, LOW, getMaxData(), getMinData())}%</h3>
+                        <h3>Score: {calcScore(1000,  calcAccuracy(HIGH, LOW, getMaxData(), getMinData()))}</h3>
+                        <h3>LOW: {LOW}</h3>
+                        <h3>HIGH: {HIGH}</h3>
+
+                        <a href="javascript:void(0);" onClick={() => closeModal()}>Go to scorepage</a>
+
+                        
+
+                    </div>
+                </Modal>
+              
+        
+
 
         </ThemeProvider>
+
+       
 
         
       </center>
@@ -333,20 +613,21 @@ function multipleRestartOnClick(){
 
             <Grid item xs={6}>
 
-            <div><h1>Time left: {timer} </h1></div>
-            <div><h3>Your HIGH: {HIGH} </h3></div>
-            <div><h3>Your LOW: {LOW} </h3></div>
+            <div><h1 >Time left: {timer} </h1></div>
+            <div><h3>Your <span style={ hStyle1 } > HIGH: </span> {HIGH} Your <span style={hStyle}> LOW: </span>{LOW}</h3></div>
+            <div><h3 style={{visibility: show}}>Accuracy: {calcAccuracy(HIGH, LOW, getMaxData(), getMinData())}% Score: {calcScore(1000,  calcAccuracy(HIGH, LOW, getMaxData(), getMinData()))} </h3></div>
+          
             </Grid>
 
            <Grid item xs={6}>
 
-          <ThemeProvider theme={theme}> 
-          
-          <Button style={{maxWidth: '1000px', maxHeight: '50px', minWidth: '1000px', minHeight: '50px'}}
-          variant="contained" size="large" color="secondary" onClick={handleHighClick} disabled={pressed}> HIGH </Button>
+      
           
           
-          </ThemeProvider>
+            <MyButton onClick={handleHighClick} disabled={pressed} color="red">HIGH</MyButton>
+          
+          
+          
           
           </Grid>
 
@@ -379,12 +660,13 @@ function multipleRestartOnClick(){
           
           <Grid item xs={6}>
 
-          <ThemeProvider theme={theme}> 
           
-           <Button style={{maxWidth: '1000px', maxHeight: '50px', minWidth: '1000px', minHeight: '50px'}}
-           variant="contained" size="large" color="tertiary" onClick={handleLowClick} disabled={pressedLow} > LOW</Button> 
+       
            
-           </ThemeProvider>
+           
+            <MyButton onClick={handleLowClick} disabled={pressedLow} color="blue">LOW</MyButton>
+          
+         
           
           </Grid>
 
@@ -392,6 +674,7 @@ function multipleRestartOnClick(){
           
           
 
+          
           
       
         </Grid>

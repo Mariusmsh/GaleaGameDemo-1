@@ -1,8 +1,11 @@
 import firebase from "../config/firebase";
 
 const db = firebase.firestore();
+//const admin = require("firebase-admin");
+//const FieldValue = admin.firestore.FieldValue;
 //var ref = database.ref('date');
 //ref.on('date')
+
 
 export function dataFromSnapshot(snapshot) {
   if (!snapshot.exists) return undefined;
@@ -38,23 +41,33 @@ export function setUserProfileData(user) {
     });
 }
 
-export function createMatch(match){
-  return db
-  .collection("match")
-  .doc(match.uid)
-  .set({
-    highScore: match.highScore,
-    lowScore: match.lowScore,
-    percentage: match.percentage
+
+export function addMatchResultsToFirestore(match, HIGH, LOW){
+  const user = firebase.auth().currentUser;
+  return db.collection('matches').add({
+    ...match,
+      matchID: firebase.firestore.FieldValue.arrayUnion(user.uid),
+      matchStat: firebase.firestore.FieldValue.arrayUnion({
+        id: user.uid,
+        high: HIGH,
+        low: LOW
+      })
+    
   })
 }
 
-export function connectMatchToUser(match, user){
-  return db
-  .collection("match")
 
-  
-}
+/*export function setUserStockData(user){
+  return db
+    .collection("users")
+    .doc(user.uid)
+    .set({
+      high: user.high,
+      low: user.low
+    });
+} */
+
+
 
 
 
@@ -103,6 +116,7 @@ export function listenToStockFromFirestore(stockId) {
   return db.collection("stock").doc(stockId).set();
   
 }
+
 
 
 
