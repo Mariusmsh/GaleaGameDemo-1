@@ -41,12 +41,12 @@ import StepProgressBar from 'react-step-progress';
 import 'react-step-progress/dist/index.css';
 
 const step1Content = firstStep();
-const step2Content = <h1>Step 2 Content</h1>;
-const step3Content = <h1>Step 3 Content</h1>;
+const step2Content = secondStep();
+const step3Content = thirdStep();
 
 
 
-
+//not used as per now, can be used to validate the "steps"
 function step2Validator() {
   // return a boolean
 }
@@ -56,6 +56,7 @@ function step3Validator() {
 }
  
 function onFormSubmit() {
+  
   // handle the submit logic here
   // This function will be executed at the last step
   // when the submit button (next button in the previous steps) is pressed
@@ -75,6 +76,75 @@ function firstStep() {
           </div>
       )
 }
+
+function secondStep(){
+  
+  function DisplayButton(props) {
+    const useStyles = makeStyles({
+      root: {
+        background: (props) =>
+          props.color === 'red'
+            ? "linear-gradient(45deg, #008000 30%, #52B640 90%)"
+            : "linear-gradient(45deg, #FF0000 30%, #FF3E20 90%)",
+        border: 0,
+        borderRadius: 3,
+        boxShadow: (props) =>
+          props.color === 'red'
+            ? '0 3px 5px 2px rgba(255, 105, 135, .3)'
+            : '0 3px 5px 2px rgba(33, 203, 243, .3)',
+        color: 'white',
+        height: 48,
+        width: 1000,
+        margin: 8,
+      },
+    });
+
+    const { color, ...other } = props;
+    const classes = useStyles(props);
+    return <Button className={classes.root} {...other} />;
+  }
+  
+  DisplayButton.propTypes = {
+    color: PropTypes.oneOf(['blue', 'red']).isRequired,
+  };
+
+
+  return(
+    
+    <div>
+    <h1>Step 2</h1>
+    <h2>Predict the HIGH and LOW</h2>
+    <h3>As you watch the progress of the graph, press HIGH when you predict its highest peak.</h3>
+    <h3>Press LOW when you predict when it is at its lowest.</h3>
+   
+    
+    <DisplayButton color="red"> HIGH</DisplayButton>
+    <DisplayButton color="blue"> LOW</DisplayButton>
+
+    
+</div>
+
+
+  )
+}
+
+function thirdStep() {
+
+
+  return (
+      <div>
+          <h1>Step 3</h1>
+          <h2>Watch out for the timer!</h2>
+          <p>The timer presents how much time you have remaining.</p>
+          <p>After the time runs out, you will be presentet your results.</p>
+
+          <div><h1 >Time left: 00:30 </h1></div>
+          
+          
+      </div>
+  )
+}
+
 
 //får ikke helt 100% til det med farger, burde egt ikke være så vanskelig
 
@@ -454,11 +524,12 @@ function closeTutorial(){
 //handles multiple events for 
 function multipleOnClick(){
   /*renderTimer();*/
+  setVisible(false);
   runPyScript();
   onClickResetBtn();
   setPressed(false);
   setPressedLow(false);
-  parseScores();
+  //parseScores();
 }
 
 function multipleRestartOnClick(){
@@ -527,14 +598,14 @@ function multipleRestartOnClick(){
                             subtitle: '50%',
                             name: 'step 2',
                             content: step2Content,
-                            validator: step2Validator
+                      
                           },
                           {
                             label: 'Step 3',
                             subtitle: '100%',
                             name: 'step 3',
                             content: step3Content,
-                            validator: step3Validator
+                            
                           }
                         ]}
                       />;
@@ -543,7 +614,7 @@ function multipleRestartOnClick(){
                       
                         
 
-                        <a href="javascript:void(0);" onClick={() => closeTutorial()}>Close</a>
+                  
 
                         
 

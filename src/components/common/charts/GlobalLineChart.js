@@ -9,8 +9,9 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ReferenceLine
+  ReferenceLine,
 } from "recharts";
+
 
 export default function GlobalLineChart({
   data,
@@ -22,15 +23,17 @@ export default function GlobalLineChart({
   legend,
   graphFit,
   graphHIGH,
-  graphLOW
+  graphLOW,
+  ResponsiveContainer
 }) {
   return (
 
+  
     <Container>
 
     
       <LineChart
-        width={1400} 
+        width={1400}
         height={700}
         responsive={true}
         data={data}
@@ -61,5 +64,6 @@ export default function GlobalLineChart({
       
 
     </Container>
+  
   );
 }
