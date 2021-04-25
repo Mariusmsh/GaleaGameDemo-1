@@ -40,9 +40,11 @@ import StepProgressBar from 'react-step-progress';
 // import the stylesheet
 import 'react-step-progress/dist/index.css';
 
-const step1Content = <h1>Step 1 Content</h1>;
+const step1Content = firstStep();
 const step2Content = <h1>Step 2 Content</h1>;
 const step3Content = <h1>Step 3 Content</h1>;
+
+
 
 
 function step2Validator() {
@@ -57,6 +59,21 @@ function onFormSubmit() {
   // handle the submit logic here
   // This function will be executed at the last step
   // when the submit button (next button in the previous steps) is pressed
+}
+
+function firstStep() {
+      return (
+          <div>
+              <h1>Step 1</h1>
+              <h2>Follow the aggregated chart.</h2>
+              <p>The chart will either go up or down.</p>
+              <p>New content will be presented on the right side</p>
+              <p>Example: </p>
+              
+              <a href="https://gyazo.com/98b1538770a4836db9fad1d1b4bb7a0d"><video autoplay="autoplay" loop muted alt="Video from Gyazo" width="966" ><source src="https://i.gyazo.com/98b1538770a4836db9fad1d1b4bb7a0d.mp4" type="video/mp4" /></video></a>
+              
+          </div>
+      )
 }
 
 //får ikke helt 100% til det med farger, burde egt ikke være så vanskelig
@@ -485,8 +502,8 @@ function multipleRestartOnClick(){
         
                 <Modal 
                     visible={tutorial}
-                    width="1000"
-                    height="600"
+                    width="1200"
+                    height="1000"
                     effect="fadeInUp"
                     onClickAway={() => closeTutorial()}
                 >
@@ -521,9 +538,12 @@ function multipleRestartOnClick(){
                           }
                         ]}
                       />;
+
+
+                      
                         
 
-                        <a href="javascript:void(0);" onClick={() => closeTutorial()}>Go back</a>
+                        <a href="javascript:void(0);" onClick={() => closeTutorial()}>Close</a>
 
                         
 
