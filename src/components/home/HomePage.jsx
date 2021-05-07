@@ -19,7 +19,7 @@ import {
 
 import { useLocation } from 'react';
 
-import ScorePage from "../score/ScorePage";
+import ScoreTable from "../score/ScoreTable.js";
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,6 +31,7 @@ import '../common/buttons/buttoncss.css'
 
 
 import Confetti from 'react-dom-confetti';
+
 
 
 //import { CalmButton } from '/GaleaDemo/GaleaGameDemo/src/components/common/buttons/CalmButton.js';
@@ -568,7 +569,9 @@ function multipleRestartOnClick(){
         </Button>
         </ThemeProvider>
 
-        <input type="button" value="VIEW TUTORIAL" class="button" onClick={() => openTutorial()} ></input>
+        
+        
+        <input type="button"  value="VIEW TUTORIAL" class="button" onClick={() => openTutorial()} ></input>
         
         
                 <Modal 
@@ -668,6 +671,8 @@ function multipleRestartOnClick(){
 
                         
 
+                        
+
                     </div>
                 </Modal>
               
@@ -762,7 +767,7 @@ function multipleRestartOnClick(){
           </Grid>
 
           
-          
+        
           
 
           

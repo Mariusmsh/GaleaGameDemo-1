@@ -26,6 +26,7 @@
     "react-dom-confetti": "^0.2.0",
     "react-jsx-highcharts": "^4.2.1",
     "react-native-confetti": "^0.1.0",
+    "react-native-leaderboard": "^1.0.6",
     "react-redux": "^7.2.3",
     "react-redux-firebase": "^3.10.0",
     "react-router-dom": "^5.2.0",

@@ -16,6 +16,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,6 +67,13 @@ export default function SignedInMenu() {
         <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="Home" />
+      </ListItem>
+
+      <ListItem button component={NavLink} to="/scorepage">
+        <ListItemIcon>
+        <ListAltIcon />
+        </ListItemIcon>
+        <ListItemText primary="Scorepage" />
       </ListItem>
      
       <ListItem button onClick={handleClick} to="/">

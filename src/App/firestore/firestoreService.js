@@ -41,6 +41,19 @@ export function setUserProfileData(user) {
     });
 }
 
+export function setScoreData(score){
+  return db
+  .collection("score")
+  .doc(score.uid)
+  .set({
+    name: score.displayName,
+    rank: score.rank,
+    accuracy: score.accuracy,
+    score: score.score
+
+  })
+}
+
 
 export function addMatchResultsToFirestore(match, HIGH, LOW){
   const user = firebase.auth().currentUser;
@@ -55,6 +68,9 @@ export function addMatchResultsToFirestore(match, HIGH, LOW){
     
   })
 }
+
+
+
 
 
 /*export function setUserStockData(user){
@@ -90,6 +106,16 @@ export function listenToStocksFromFirestore() {
     return db.collection("stock").orderBy('date', 'asc');
 }
 
+
+export function listenToScoresFromFirestore() {
+  //var time = 1;
+  //var timer = setInterval(timeoutData, 1000);   //The refreshes the function timoutData every second. Might overflow the firebase/database.
+  //clearInterval(timer); //Connected line of code above
+  
+ // timeoutData(); //legge til sorterting etter score
+    return db.collection("score").orderBy('asc');
+}
+
 /* Funksjon som loader random interger data, tatt ut i kommentar as per now
 function loadData(){
   var x = getRndInteger(600, 900)
@@ -109,13 +135,26 @@ db.collection("stock").onSnapshot(snapshot => {
   console.log(changes);
 })
 
+db.collection("score").onSnapshot(snapshot => {
+  let changes = snapshot.docChanges();
+  console.log(changes);
+})
 
 
-// Get single stock document from firestore
+
+// Get single score document from firestore
 export function listenToStockFromFirestore(stockId) {
   return db.collection("stock").doc(stockId).set();
   
 }
+
+// Get single score document from firestore
+export function listenToScoreFromFirestore(scoreID) {
+  return db.collection("score").doc(scoreID).set();
+  
+}
+
+
 
 
 
