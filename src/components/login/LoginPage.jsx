@@ -11,7 +11,11 @@ import {
   TextField,
   Tooltip,
   Typography,
+  createMuiTheme,
+  ThemeProvider
 } from "@material-ui/core";
+
+
 import FacebookIcon from "@material-ui/icons/Facebook";
 import MailIcon from "@material-ui/icons/Mail";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -38,6 +42,29 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
 }));
+
+
+  //const that defines the theme 
+  const blueTheme = createMuiTheme({
+    palette: {
+      primary:  {
+        main: '#3f51b5',
+      }
+    }
+
+  });
+
+  //const that defines the theme 
+  const redTheme = createMuiTheme({
+    palette: {
+      primary:  {
+        main: '#e90101',
+      }
+    }
+
+  });
+
+
 
 const validationSchema = yup.object({
   email: yup
@@ -150,13 +177,14 @@ export default function LoginPage() {
                 >
                   Submit
                 </Button>
-
+                <ThemeProvider theme={redTheme}>
                 <Button
-                  color="secondary"
+                  color="primary"
                   onClick={() => setResetPassword(true)}
                 >
                   Forgot password? Click Here
-                </Button>
+                </Button> 
+                </ThemeProvider>
               </form>
             ) : (
               <ResetPassword setResetPassword={setResetPassword} />
@@ -182,15 +210,17 @@ export default function LoginPage() {
             justify="center"
             alignItems="center"
           >
+            <ThemeProvider theme = {redTheme}>
             <Button
               variant="contained"
-              color="secondary"
+              color="primary"
               className={classes.button}
               fullWidth={true}
               onClick={() => handleSocialLogin("google")}
             >
               Login with Google
             </Button>
+            </ThemeProvider>
           </Grid>
         </Grid>
       </Paper>
@@ -202,6 +232,7 @@ export default function LoginPage() {
       <Grid container direction="column" justify="center" alignItems="center">
         {!btnBack ? (
           <Paper elevation={3} className={classes.paper}>
+            <ThemeProvider theme = {blueTheme}>
             <Button
               variant="contained"
               color="primary"
@@ -212,6 +243,7 @@ export default function LoginPage() {
             >
               Login with Facebook
             </Button>
+            </ThemeProvider>
             <Typography component="h4" variant="h6">
               OR
             </Typography>

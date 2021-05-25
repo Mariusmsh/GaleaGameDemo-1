@@ -85,14 +85,14 @@ function secondStep(){
       root: {
         background: (props) =>
           props.color === 'red'
-            ? "linear-gradient(45deg, #008000 30%, #52B640 90%)"
-            : "linear-gradient(45deg, #FF0000 30%, #FF3E20 90%)",
+            ? "linear-gradient(45deg, #178901 30%, #178901 90%)"
+            : "linear-gradient(45deg, #e90101 90%, #e90101 90%)",
         border: 0,
         borderRadius: 3,
         boxShadow: (props) =>
           props.color === 'red'
-            ? '0 3px 5px 2px rgba(255, 105, 135, .3)'
-            : '0 3px 5px 2px rgba(33, 203, 243, .3)',
+            ? '0 3px 5px 2px rgba(23, 137, 1, .3)'
+            : '0 3px 5px 2px rgba(233, 1, 1, .3)',
         color: 'white',
         height: 48,
         width: 1000,
@@ -155,7 +155,9 @@ export default function HomePage() {
   //const that defines the theme 
   const theme = createMuiTheme({
     palette: {
-      primary: blue
+      primary:  {
+        main: '#3f51b5',
+      },
     }
 
   });
@@ -177,45 +179,24 @@ export default function HomePage() {
 
 
   
-/*
-  const StyledButton = withStyles({
-    root: {
-      background: '#FF0000',
-      color: 'white',
-      borderRadius: 3,
-      border: 0,
-      padding: '0 30px'
-    }
-  })(Button);
-
-  
-  const StyledButton1 = withStyles({
-    root: {
-      background: '#008000',
-      color: 'white',
-      borderRadius: 3,
-      border: 0,
-      padding: '0 30px'
-    }
-  })(Button);
-*/
   const useStyles = makeStyles({
     root: {
       background: (props) =>
         props.color === 'red'
-          ? "linear-gradient(45deg, #008000 30%, #52B640 90%)"
-          : "linear-gradient(45deg, #FF0000 30%, #FF3E20 90%)",
+          ? "linear-gradient(45deg, #178901 30%, #178901 90%)"
+          : "linear-gradient(45deg, #e90101 90%, #e90101 90%)",
       border: 0,
       borderRadius: 3,
       boxShadow: (props) =>
         props.color === 'red'
-          ? '0 3px 5px 2px rgba(255, 105, 135, .3)'
-          : '0 3px 5px 2px rgba(33, 203, 243, .3)',
+          ? '0 3px 5px 2px rgba(23, 137, 1, .3)'
+          : '0 3px 5px 2px rgba(233, 1, 1, .3)',
       color: 'white',
       height: 48,
       width: 1000,
       margin: 8,
     },
+    
   });
   
   function MyButton(props) {

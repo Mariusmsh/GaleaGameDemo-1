@@ -12,7 +12,7 @@ import subprocess
 from subprocess import call
 
 # Må bruke en annen 'deployment server'. Flask sin deployment server er svært begrenset og takler ikke multi-threaded requests/events.
-# Dessuten, så må stoppe hele serveren (med flask sin server) og restarte den for å sende inn nye requests. Må se nærmere på det
+# Dessuten, så må stoppe hele serveren (med flask sin server) og restarte den for å sende inn nye requests.
 
 
 cred = credentials.Certificate(
