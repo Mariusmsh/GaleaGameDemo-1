@@ -72,22 +72,6 @@ export function addMatchResultsToFirestore(match, HIGH, LOW){
 
 
 
-
-/*export function setUserStockData(user){
-  return db
-    .collection("users")
-    .doc(user.uid)
-    .set({
-      high: user.high,
-      low: user.low
-    });
-} */
-
-
-
-
-
-
 /*
 //function that creates a random value for a stock, so it creates a random game
 function getRndInteger(min, max) {
@@ -99,7 +83,7 @@ function getRndInteger(min, max) {
 // Get stocks collection from firestore
 export function listenToStocksFromFirestore() {
   //var time = 1;
-  //var timer = setInterval(timeoutData, 1000);   //The refreshes the function timoutData every second. Might overflow the firebase/database.
+  //var timer = setInterval(timeoutData, 1000);   //Refreshes the function timoutData every second. Might overflow the firebase/database.
   //clearInterval(timer); //Connected line of code above
   
  // timeoutData();
@@ -153,14 +137,6 @@ export function listenToScoreFromFirestore(scoreID) {
   return db.collection("score").doc(scoreID).set();
   
 }
-
-
-
-
-
-
-
-
 
 
 //Update "live" data

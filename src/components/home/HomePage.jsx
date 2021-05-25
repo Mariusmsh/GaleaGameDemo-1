@@ -7,20 +7,13 @@ import { addMatchResultsToFirestore } from "../../App/firestore/firestoreService
 import AppLoader from "../common/uiElements/AppLoader";
 import GlobalLineChart from "../common/charts/GlobalLineChart";
 import useFirestoreCollection from "../common/hooks/useFirestoreCollection";
-import { green, blue, red } from '@material-ui/core/colors'; 
+//import { green, blue, red } from '@material-ui/core/colors'; 
 import { useState, useRef, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 
-import { useLocation } from 'react';
 
-import ScoreTable from "../score/ScoreTable.js";
-import { withStyles } from '@material-ui/core/styles';
+
+//import ScoreTable from "../score/ScoreTable.js";
+
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -29,7 +22,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from 'react-awesome-modal';
 import '../common/buttons/buttoncss.css'
 
-
+//konfetti effekt i applikasjon
 import Confetti from 'react-dom-confetti';
 
 
@@ -46,15 +39,6 @@ const step2Content = secondStep();
 const step3Content = thirdStep();
 
 
-
-//not used as per now, can be used to validate the "steps"
-function step2Validator() {
-  // return a boolean
-}
- 
-function step3Validator() {
-  // return a boolean
-}
  
 function onFormSubmit() {
   
@@ -147,7 +131,6 @@ function thirdStep() {
 }
 
 
-//får ikke helt 100% til det med farger, burde egt ikke være så vanskelig
 
 
 export default function HomePage() {
@@ -282,8 +265,8 @@ export default function HomePage() {
       }
   },[]); //NB OVERSE WARNING!!
 
-  //man kan plassere noe inne i [] som denne skal være dependent på, men hvis man prøver stocks,
-  // så blir greia helt loka, kan ha tomt array enn så lenge
+  //man kan plassere noe inne i [] som denne skal være dependent på
+  //i denne forstand, behold tomt array
 
   function onClickResetBtn(){
     {if(intervalRef.current) clearInterval(intervalRef.current)}
@@ -302,6 +285,7 @@ function clickLow(){
   
 }
 
+//regner ut accuracy for bruker
 function calcAccuracy(HIGH, LOW, MAX, MIN){
   var forMax = Math.floor((HIGH*100)/MAX)
   var forMin;
@@ -320,7 +304,7 @@ function calcScore(maxPoints, accuracy){
   return (maxPoints*accuracy)/100;
 }
 
-
+//funksjon som kan hente ut nåværende verdi
 function getCurrentValue(){
   return Math.floor.apply(
     Math,
@@ -381,7 +365,7 @@ function handleLowClick(){
 
 
   
-  
+ //funksjon som ikke er benyttet for å lagre score til bruker 
 function parseScores(){
   var highValue = setSaveHIGH(HIGH)
   var lowValue = setSaveLow(LOW)
@@ -397,16 +381,18 @@ function openModal() {
   setVisible(true);
 }
 
+//lukk popup box
 function closeModal() {
   setVisible(false);
 }
 
-
+//setstate for tutorial
 const [tutorial, setTutorial] = useState (false);
 function openTutorial(){
   setTutorial(true);
 }
 
+//lukker tutorial
 function closeTutorial(){
   setTutorial(false);
 }
@@ -532,7 +518,7 @@ function multipleRestartOnClick(){
 //new chart integration
 
 
-  if (stocks && stocks.length < 1) return <AppLoader />, //UNEXPECTED??? KAN IKKE FJERNE
+  if (stocks && stocks.length < 1) return <AppLoader />, //UNEXPECTED error - IKKE FJERN
     <div>
       <center>
 
@@ -666,7 +652,7 @@ function multipleRestartOnClick(){
 
         
       </center>
-      {/*prøvde å flytte på denne, men da begynte programmet å loke og laste inn masse shit i grafen*/}
+      {/*IKKE FJERN*/}
 
    
     </div>

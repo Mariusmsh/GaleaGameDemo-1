@@ -18,7 +18,7 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 
-
+//Tema
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+//Default funksjon for innlogget meny
 export default function SignedInMenu() {
   const history = useHistory();
   const classes = useStyles();

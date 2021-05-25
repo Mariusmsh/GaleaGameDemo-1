@@ -13,6 +13,8 @@ import {
 } from "recharts";
 
 
+//Inneholder standard for GlobalLineChart, i tillegg blir den eksportert her
+
 export default function GlobalLineChart({
   data,
   xAxis,

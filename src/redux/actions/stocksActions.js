@@ -6,6 +6,7 @@ import {
 } from "../constants/stocksConstants";
 import moment from "moment";
 
+//Actions for Constants
 export function listenToStocks(stocks) {
   let data = [];
   stocks.forEach((e) => {

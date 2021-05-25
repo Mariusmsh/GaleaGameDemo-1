@@ -2,6 +2,8 @@ import firebase from "../config/firebase";
 import { setUserProfileData } from "./firestoreService";
 import { addOneDataToUser } from "./firestoreService";
 
+
+//Funksjon for email
 export function signInWithEmail(creds) {
   return firebase
     .auth()
@@ -33,7 +35,7 @@ export async function registerInFirebase(creds) {
 }
 
 
-
+//Funksjon for Facebook og Google
 export async function socialLogin(selectedProvider) {
   let provider;
   if (selectedProvider === "facebook") {

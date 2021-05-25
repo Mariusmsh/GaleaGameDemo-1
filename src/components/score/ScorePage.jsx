@@ -8,6 +8,7 @@ import { listenToScores } from "../../redux/actions/scoreActions";
 import { useDispatch, useSelector } from "react-redux";
 
 
+//Default funksjon for ScorePage. (Dette er ikke ferdigstilt).
 export default function ScorePage() {
 
     const dispatch = useDispatch();

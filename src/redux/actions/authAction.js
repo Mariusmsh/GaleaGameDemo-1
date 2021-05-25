@@ -8,7 +8,7 @@ export function signInUser(user) {
     payload: user,
   };
 }
-
+//Actions for Constants
 export function verifyAuth() {
   return function (dispatch) {
     return firebase.auth().onAuthStateChanged((user) => {

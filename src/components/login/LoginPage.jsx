@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-  //const that defines the theme 
+  //Blått tema
   const blueTheme = createMuiTheme({
     palette: {
       primary:  {
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
   });
 
-  //const that defines the theme 
+  //Rødt tema
   const redTheme = createMuiTheme({
     palette: {
       primary:  {
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   });
 
 
-
+//Validering
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
@@ -77,6 +77,7 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
+//Default LoginPage funksjon
 export default function LoginPage() {
   const classes = useStyles();
   const history = useHistory();
@@ -107,8 +108,10 @@ export default function LoginPage() {
     },
   });
 
+  //Funksjon for Email login
   function renderEmailLoginForm() {
     return (
+      //Google innlogging
       <Paper elevation={3} className={classes.paper}>
         <Grid container direction="column">
           <Grid
@@ -228,6 +231,7 @@ export default function LoginPage() {
   }
 
   return (
+    //Container for Facebook og Email
     <Container maxWidth="sm">
       <Grid container direction="column" justify="center" alignItems="center">
         {!btnBack ? (

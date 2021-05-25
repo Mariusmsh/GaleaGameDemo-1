@@ -12,7 +12,7 @@ import subprocess
 from subprocess import call
 
 # Må bruke en annen 'deployment server'. Flask sin deployment server er svært begrenset og takler ikke multi-threaded requests/events.
-# Dessuten, så må stoppe hele serveren (med flask sin server) og restarte den for å sende inn nye requests.
+# Dessuten, så må man stoppe hele serveren (med flask sin server) og restarte den for å sende inn nye requests.
 
 
 cred = credentials.Certificate(
@@ -21,18 +21,25 @@ app = firebase_admin.initialize_app(cred)
 
 store = firestore.client()
 
+#Predefinert data. Burde erstattes med en API som kan hente inn live data.
+
 stockdata = ["512", "513", "514", "515", "515", "516", "517", "518",
              "519", "520", "521", "520", "519", "517", "518", "516",
              "514", "513", "512", "511", "510", "509", "508", "507",
              "506", "507", "508", "509", "510", "511"]
 
+#Starter nedtelling for hvor lenge dataen over skal sendes inn til databasen. 
+
 endTime = datetime.datetime.now() + datetime.timedelta(seconds=30)
+
+#Navn på Collection i Firebase Firestore.
 
 doc_ref = store.collection(u'stock')
 
 
 app = Flask(__name__)
 
+#Primær nedteller funksjon som sender inn data.
 
 def my_function():
 
@@ -51,6 +58,7 @@ def my_function():
     # /
     return 'OK'
 
+#Stenger Flask serveren
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
@@ -75,7 +83,7 @@ def delete_document():
 
     return 'Deleting documents..'
 
-
+#GET-spørring for /shutdown
 @app.route('/shutdown', methods=['GET'])
 def shutdown():
     shutdown_server()
@@ -87,6 +95,7 @@ def index():
     return 'OK'
     #flask.render_template("homepage.jsx", token="Loaded python script")
 
+#GET-spørring for /test
 
 @app.route("/test", methods=['GET'])
 def test():

@@ -16,7 +16,7 @@ import { ListItemAvatar } from "@material-ui/core";
 
 
 
-
+//Kolonner
 const columns = [
   {
     id: "rank",
@@ -42,13 +42,13 @@ export function createData(rank, name, accuracy, score) {
 
 
 
-
+//Konstant for firebase.firestore database
 const db = firebase.firestore();
 
 
 
 
-
+//Tema
 const useStyles = makeStyles({
   root: {
     width: "100%"
@@ -60,7 +60,7 @@ const useStyles = makeStyles({
 
 
 
-
+//Default funksjon for stickyheadtable
 export default function StickyHeadTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
@@ -100,7 +100,7 @@ export default function StickyHeadTable() {
 
 
   
-
+   //Dummy data. PLACEHOLDER
    var rows = [
      createData(1, "Benjamin", "99%", 2000),
      createData(2, "Sigurd", "95%", 1800),
@@ -109,7 +109,7 @@ export default function StickyHeadTable() {
 
    ];
 
-  
+       //Eksperimentell funksjon. Ikke ferdigstilt.
        /* for (var i = 0; i < scores.length; i++) {
             rows.push(createData(scores && scores.map(scores=>{return(scores.rank)}), scores && scores.map(scores=>{return(scores.name)}),scores && scores.map(scores=>{return(scores.accuracy)}), scores && scores.map(scores=>{return(scores.score)})));
         } */

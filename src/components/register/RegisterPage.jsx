@@ -14,6 +14,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import Alert from "@material-ui/lab/Alert";
 import { registerInFirebase } from "../../App/firestore/firebaseService";
 
+//Tema
 const useStyles = makeStyles((theme) => ({
   paper: {
     width: theme.spacing(55),
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Valdering
 const validationSchema = yup.object({
   displayName: yup
     .string("Enter your display name")
@@ -44,6 +46,7 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
+//Default funksjon for registrering
 export default function RegisterPage() {
   const classes = useStyles();
   const history = useHistory();

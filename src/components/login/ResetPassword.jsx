@@ -3,6 +3,8 @@ import { Button, makeStyles, TextField, Typography } from "@material-ui/core";
 import { requestResetPassword } from "../../App/firestore/firebaseService";
 // import Alert from "@material-ui/lab/Alert";
 
+
+//Tema
 const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(1),
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
+//Default funksjon for å resette passord
 export default function ResetPassword({ setResetPassword }) {
   const classes = useStyles();
   const [email, setEmail] = useState("");

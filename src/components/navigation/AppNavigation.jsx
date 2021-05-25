@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
 
+//Tema
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -167,8 +168,8 @@ function AppNavigation(props) {
 
 AppNavigation.propTypes = {
   /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
+   * PLACEHOLDER
+   * PLACEHOLDER
    */
   window: PropTypes.func,
 };
