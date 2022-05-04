@@ -75,6 +75,13 @@ export default function SignedInMenu() {
         </ListItemIcon>
         <ListItemText primary="Scorepage" />
       </ListItem>
+
+      <ListItem button component={NavLink} to="/quiz">
+        <ListItemIcon>
+        <SportsEsportsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Quiz" />
+      </ListItem>
      
       <ListItem button onClick={handleClick} to="/">
         <ListItemIcon>

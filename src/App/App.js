@@ -8,6 +8,7 @@ import LoginPage from "../components/login/LoginPage";
 import AppNavigation from "../components/navigation/AppNavigation";
 import RegisterPage from "../components/register/RegisterPage";
 import ScorePage from "../components/score/ScorePage";
+import Quiz from "../components/quiz/Quiz";
 import "./App.css";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -26,6 +27,7 @@ function App() {
         <Switch>
           <ProtectedRoute exact path="/" component={HomePage} />
           <ProtectedRoute exact path="/scorepage" component={ScorePage} />
+          <ProtectedRoute exact path="/quiz" component={Quiz} />
           <Route
             path={"/(.+)"}
             render={() => (

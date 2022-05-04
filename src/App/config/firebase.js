@@ -5,12 +5,14 @@ import "firebase/auth";
 import "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDfSPvHThBryI4HWHDsdyJNoHvACYo4wDE",
-  authDomain: "login-7cae3.firebaseapp.com",
-  projectId: "login-7cae3",
-  storageBucket: "login-7cae3.appspot.com",
-  messagingSenderId: "174101026686",
-  appId: "1:174101026686:web:f527c5705d2cdb33b3452f"
+  apiKey: "AIzaSyCimO84pWOUI2gIWMgyoZvXRbZ1GaU2cfY",
+  authDomain: "galea-game.firebaseapp.com",
+  databaseURL: "https://galea-game-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "galea-game",
+  storageBucket: "galea-game.appspot.com",
+  messagingSenderId: "255814321514",
+  appId: "1:255814321514:web:846a89fd1a250b9b805113",
+  measurementId: "G-T0CHY60SDJ"
 };
 
 firebase.initializeApp(firebaseConfig);
